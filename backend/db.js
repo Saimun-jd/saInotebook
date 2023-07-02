@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
-const mongoURI = "mongodb://localhost:27017/";
+const mongoURI = "mongodb+srv://saimun:sd12@cluster0.lozkhqs.mongodb.net/?retryWrites=true&w=majority";
 
 const connectToMongo = () => {
     mongoose
-        .connect(mongoURI)
-        .catch (error => console.log(error));
+        .connect(mongoURI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
+        .then(()=> {console.log('DataBase Connected')})
+        .catch(error => console.log(error))
 }
 
 module.exports = connectToMongo;
