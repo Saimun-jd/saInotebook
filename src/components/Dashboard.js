@@ -1,14 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Col, Container, Row } from "react-bootstrap";
-import GlobalContext from "../context/GlobalContext";
 import NoteContext from "../context/notes/NoteContext";
 import Note from "./Note";
 import FloatingButton from "./FloatingButton";
 
 function Dashboard() {
     const { notes } = useContext(NoteContext);
-    const { toggleAddNote, addButtonOn } = useContext(GlobalContext);
-    toggleAddNote(true);
+    //const { toggleAddNote, addButtonOn } = useContext(GlobalContext);
+    //toggleAddNote(true);
+
+    const [showComponent, setShowComponent] = useState(true);
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === "/") {
+            setShowComponent(true);
+        } else {
+            setShowComponent(false);
+        }
+    }, [location]);
+
     return (
         <>
             <Container>
@@ -31,7 +43,7 @@ function Dashboard() {
                     ))}
                 </Row>
             </Container>
-            {addButtonOn && <FloatingButton />}
+        {showComponent && <FloatingButton />}
         </>
     );
 }
