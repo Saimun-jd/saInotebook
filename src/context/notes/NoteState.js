@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import NoteContext from "./NoteContext";
 
 const NoteState = (props) => {
@@ -27,8 +27,12 @@ const NoteState = (props) => {
             );
     }, []);
 
+    const addNote = useCallback((newNote) => {
+        setNotes((notes) => [...notes, newNote]);
+    }, []);
+
     return (
-        <NoteContext.Provider value={notes}>
+        <NoteContext.Provider value={{notes, addNote}}>
             {props.children}
         </NoteContext.Provider>
     );

@@ -8,7 +8,7 @@ function NavComponent() {
   return (
     <Navbar bg="dark" data-bs-theme="dark" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">iNotebook- notes that are worth taking</Navbar.Brand>
+        <Navbar.Brand href="/">iNotebook- notes that are worth taking</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text>
