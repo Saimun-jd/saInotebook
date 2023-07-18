@@ -1,7 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import NoteContext from "./NoteContext";
+import ACTIONS from "./actions";
+import reducer from "./reducer";
+
+const initState = {
+    showAlert: false,
+    alertType: "",
+    alertText: "",
+};
 
 const NoteState = (props) => {
+    const [state, dispatch] = useReducer(reducer, initState);
+
+    const displayAlert = (alertType, alertText) => {
+        dispatch({ type: ACTIONS.DISPLAY_ALERT, payload: { alertType, alertText } });
+    };
+    const hideAlert = () => {
+        dispatch({type: ACTIONS.HIDE_ALERT});
+    }
+
+
     const [notes, setNotes] = useState([]);
     useEffect(() => {
         const authToken =
@@ -32,7 +50,7 @@ const NoteState = (props) => {
     }, []);
 
     return (
-        <NoteContext.Provider value={{notes, addNote}}>
+        <NoteContext.Provider value={{ notes, addNote, displayAlert, hideAlert, state }}>
             {props.children}
         </NoteContext.Provider>
     );

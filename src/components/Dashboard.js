@@ -7,8 +7,6 @@ import FloatingButton from "./FloatingButton";
 
 function Dashboard() {
     const { notes } = useContext(NoteContext);
-    //const { toggleAddNote, addButtonOn } = useContext(GlobalContext);
-    //toggleAddNote(true);
 
     const [showComponent, setShowComponent] = useState(true);
     const location = useLocation();
