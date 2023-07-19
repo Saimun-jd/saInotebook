@@ -53,7 +53,8 @@ router.post(
 //Route 3: update note
 router.put(
     "/updatenote/:id",
-    fetchUser, validateNote, //middlewware functions
+    fetchUser,
+    validateNote, //middlewware functions
     async (req, res) => {
         try {
             const { title, description, tag } = req.body;
@@ -78,6 +79,28 @@ router.put(
             console.error(error.message);
             res.status(500).send("Internal error occured");
         }
-});
+    }
+);
+
+//Route:4 Delete note
+router.delete(
+    "/deletenote/:id",
+    fetchUser, //middlewware function
+    async (req, res) => {
+        try {
+            //find the note with id
+            let note = await Note.findById(req.params.id);
+            if (!note) return res.status(404).send("Not found!!!");
+            // Check if this note belongs to this user
+            if (note.user.toString() !== req.user.id)
+                return res.status(401).send("Not allowed!!!");
+            note = await Note.findByIdAndDelete(req.params.id);
+            res.json({ sucuess: "note has been deleted", note: note });
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send("Internal error occured");
+        }
+    }
+);
 
 module.exports = router;
