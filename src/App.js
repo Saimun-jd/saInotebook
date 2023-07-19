@@ -4,6 +4,7 @@ import AddNoteForm from "./components/AddNoteForm";
 import Dashboard from "./components/Dashboard";
 import Error from "./components/Error";
 import NavComponent from "./components/Navbar";
+import Register from "./components/Register";
 import NoteState from "./context/notes/NoteState";
 import UserState from "./context/user/UserState";
 
@@ -20,6 +21,11 @@ function App() {
                                 exact
                                 path="/addnote"
                                 element={<AddNoteForm />}
+                            />
+                            <Route
+                                exact
+                                path="/register"
+                                element={<Register />}
                             />
                             <Route path="*" element={<Error />} />
                         </Routes>
